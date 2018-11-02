@@ -126,11 +126,10 @@ protocols including SSL/TLS, SSH, IKE, etc. at negligible cost to efficiency.
 We propose a ``wrapper'' function around existing
 pseudorandom number generators, in contexts that have access to a
 party's signing algorithm. Let $y$ be the output of the pseudorandom
-number generator. As in the main document~\ref{randomnessirtf}, we define the wrapper to be:
-
-$$
+number generator. As in the main document~\cite{randomnessirtf}, we define the wrapper to be:
+\[
 \prf(\texttt{KDF}(y, \texttt{H}(\sig (\sk, \texttt{tag}_1))), \texttt{tag}_2, n),
-$$
+\]
 where $\texttt{tag}_1$ and $\texttt{tag}_2$ are public and are chosen
 from some fixed sets $\mathcal{T}_1$ and $\mathcal{T}_2$ correspondingly
 and where \texttt{PRF} and \texttt{KDF} and instantiated with
@@ -152,7 +151,8 @@ A family of deterministic polynomial time computable functions $Rand_{k}
 \colon \{0, 1\}^{k} \rightarrow \{0, 1 \}^{p(k)}$ for some polynomial
 $p$ is a  CSPRNG, if it stretches the length of its input ($p(k) > k$ for any $k$) and if its output is computationally indistinguishable from true randomness, i.e. for any probabilistic polynomial time algorithm $A$, which outputs 1 or 0 as a distinguisher,
 
-$$ |\Pr_{x\gets\{0,1\}^k}[A(Rand(x))=1] - \Pr_{r\gets\{0,1\}^{p(k)}}[A(r)=1]| < \mu(k) $$
+$$ \Bigl|\Pr_{x\gets\{0,1\}^k}[A(Rand(x))=1] -
+\Pr_{r\gets\{0,1\}^{p(k)}}[A(r)=1] \Bigr| < \mu(k) $$
 
 \noindent for some negligible function $\mu$.
 
@@ -161,7 +161,7 @@ All this is saying is that, no efficient algorithm (with knowledge of how Rand w
 Andrew Yao showed that this definition is equivalent to the next-bit test (below).
 
 \subsubsection*{Property 2. Resistance to state compromise extensions (forward secure)}
-Another property we want is for the CSPRNG to be forward secure. A forward-secure CSPRNG with block length $t(k)$ is a $Rand_{k} \colon \{0,1\}^k \to \{0,1\}^k \times \{0,1\}^{t(k)}$, where the input string $s_i$ with length $k$ is the current state at period $i$, and the output $s_{i+1}$, $y_i$) consists of the next state $s_{i+1}$> and the pseudorandom output block $y_i$ of period $i$, such that it withstands state compromise extensions in the following sense. If the initial state $s_1$ is chosen uniformly at random from $\{0,1\}^k$, then for any $i$, the sequence $(y_1, y_2,\dots, y_i,s_{i+1})$ must be computationally indistinguishable from $(r_1,r_2,\dots,r_i,s_{i+1})$, in which the $r_i$ are chosen uniformly at random from $\{0,1\}^{t(k)}$.
+Another property we want is for the CSPRNG to be forward secure. A forward-secure CSPRNG with block length $t(k)$ is a $Rand_{k} \colon \{0,1\}^k \to \{0,1\}^k \times \{0,1\}^{t(k)}$, where the input string $s_i$ with length $k$ is the current state at period $i$, and the output $(s_{i+1}, y_i)$ consists of the next state $s_{i+1}$ and the pseudorandom output block $y_i$ of period $i$, such that it withstands state compromise extensions in the following sense. If the initial state $s_1$ is chosen uniformly at random from $\{0,1\}^k$, then for any $i$, the sequence $(y_1, y_2,\dots, y_i,s_{i+1})$ must be computationally indistinguishable from $(r_1,r_2,\dots,r_i,s_{i+1})$, in which the $r_i$ are chosen uniformly at random from $\{0,1\}^{t(k)}$.
 
 \subsubsection*{The next-bit test (equivalent definition of CSPRNG)}
 By satisfying the next-bit test, we mean that given the first $k$ bits of outputs from Rand sequence, there is no polynomial-time algorithm that can predict the $(k+1)$th bit with probability of success better than 50\% (without knowing the seed). Andrew Yao proved in 1982 that a generator passing the next-bit test will pass all other polynomial-time statistical tests for randomness.
