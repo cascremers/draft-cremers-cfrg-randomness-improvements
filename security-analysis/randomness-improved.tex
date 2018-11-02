@@ -207,7 +207,7 @@ $$
 $$
 
 \subsection{Key derivation function} \label{KDFdef}
-The security property we require of $\texttt{KDF}$ is as follows. Intuitively, we require $\texttt{KDF}(y,x)$ to be indistinguishable from uniform random if at least one of $x$ or $y$ in unknown. In other words we assume that the $\texttt{KDF}(\cdot,x)$ and $\texttt{KDF}(y,\cdot)$ functions, where $x$ and $y$ are chosen uniformly independently at random from the corresponding sets, are computationally indistinguishable from two "ideal" functions chosen uniformly independently at random from the sets of all functions with corresponding domains and ranges.  Let $\epsilon_{\texttt{KDF}}$ denote the probability that any probabilistic polynomial time adversary is able to distinguish between these distributions.
+The security property we require of $\texttt{KDF}$ is as follows. Intuitively, we require $\texttt{KDF}(y,x)$ to be indistinguishable from uniform random if at least one of $x$ or $y$ in unknown. In other words we assume that the $\texttt{KDF}(\cdot,x)$ and $\texttt{KDF}(y,\cdot)$ functions, where $x$ and $y$ are chosen uniformly independently at random from the corresponding sets, are computationally indistinguishable from two ``ideal" functions chosen uniformly independently at random from the sets of all functions with corresponding domains and ranges.  Let $\epsilon_{\texttt{KDF}}$ denote the probability that any probabilistic polynomial time adversary is able to distinguish between these distributions.
 
 In our concrete construction, we instantiate \texttt{KDF} with HKDF-extract. The HKDF-Extract scheme is proved to be a secure extractor that takes as inputs a value a salt and long-term key. In \cite{krawczyk2010cryptographic}, the scheme is not analyzed in the case where the long-term key is compromised but the salt is not. For HKDF-extract based on HMAC, we believe it is reasonable to expect the above security guarantee. Certainly in many cryptographic security proofs such a KDF is merely modeled as a random oracle and in those cases our assumption trivially follows.
 
@@ -290,13 +290,13 @@ The adversary is allowed to make the following queries to the challenger.
 	
 	\item The adversary is also allowed to make \texttt{reveal} queries for the $y_i$ value used in the $i$th \texttt{output} query at any time (the adversary makes the query with the index of the target \texttt{output} query). The challenger must respond with the $y_i$ value used in generating the response to the $i$th \texttt{output} query.
 	
-	\item We say that the $i$th \texttt{output} query is "fresh" if one of the values $y_i$ and $\mathrm{\texttt{signature}}$ stay secret. That is, if one of the following conditions is satisfied:
+	\item We say that the $i$th \texttt{output} query is \emph{fresh} if one of the values $y_i$ and $\mathrm{\texttt{signature}}$ stay secret. That is, if one of the following conditions is satisfied:
 	\begin{itemize}
 		\item the adversary has not made the \texttt{corrupt} query or the \texttt{sign} query for $m = \texttt{tag}_1^i$. 
 		\item this query contains only $\texttt{tag}_1, \texttt{tag}_2$ and the adversary has not made the \texttt{reveal} query for  $y_i$.
 	\end{itemize}
 	
-We also say that an \texttt{output} query is "non-trivial" if one of the following conditions is satisfied
+We also say that an \texttt{output} query is ``non-trivial" if one of the following conditions is satisfied
 	
 	\begin{itemize}
 		\item this query is of the type $\texttt{tag}_1, \texttt{tag}_2, y$ and this query has not been made before. 
